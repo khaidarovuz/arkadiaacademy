@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "entities": {
+    "AcademySettings": {
+      "title": "AcademySettings",
+      "description": "Global settings, contacts, announcement banner, and branch locations of Arkadia Academy",
+      "type": "object",
+      "properties": {
+        "phone": { "type": "string" },
+        "phoneSecondary": { "type": "string" },
+        "telegramUsername": { "type": "string" },
+        "telegramUrl": { "type": "string" },
+        "instagramUsername": { "type": "string" },
+        "instagramUrl": { "type": "string" },
+        "address": { "type": "string" },
+        "workingHours": { "type": "string" },
+        "topAnnouncement": { "type": "string" },
+        "customLogoUrl": { "type": "string" },
+        "branches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "address": { "type": "string" },
+              "landmark": { "type": "string" },
+              "phone": { "type": "string" },
+              "isMain": { "type": "boolean" }
+            },
+            "required": ["id", "name", "address"]
+          }
+        },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["phone", "address", "workingHours"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "Educational course provided by Arkadia Academy",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "duration": { "type": "string" },
+        "lessonsPerWeek": { "type": "string" },
+        "mentor": { "type": "string" },
+        "price": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "hasDiscount": { "type": "boolean" },
+        "discountBadge": { "type": "string" },
+        "seatsLeft": { "type": "number" },
+        "image": { "type": "string" },
+        "syllabus": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "isPopular": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "category", "description", "price"]
+    },
+    "NewsItem": {
+      "title": "NewsItem",
+      "description": "News, masterclasses, and updates from the academy",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" },
+        "category": { "type": "string" },
+        "mediaUrl": { "type": "string" },
+        "mediaType": { "type": "string", "enum": ["image", "video"] },
+        "isPinned": { "type": "boolean" }
+      },
+      "required": ["id", "title", "content", "date", "category", "mediaUrl"]
+    },
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "Photos and videos showcasing academy life and events",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string", "enum": ["photo", "video"] },
+        "url": { "type": "string" },
+        "category": { "type": "string" },
+        "caption": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "type", "url", "category"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "Student registration and admission inquiry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentName": { "type": "string" },
+        "phone": { "type": "string" },
+        "courseTitle": { "type": "string" },
+        "courseId": { "type": "string" },
+        "submittedAt": { "type": "string" },
+        "status": { "type": "string", "enum": ["Yangi", "Bog'lanildi", "Yozildi", "Bekor qilindi"] },
+        "notes": { "type": "string" },
+        "preferredTime": { "type": "string" },
+        "promoCode": { "type": "string" },
+        "source": { "type": "string" }
+      },
+      "required": ["id", "studentName", "phone", "courseTitle", "submittedAt", "status"]
+    }
+  },
+  "firestore": {
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/AcademySettings" },
+      "description": "Settings collection containing academy configuration"
+    },
+    "/courses/{courseId}": {
+      "schema": { "$ref": "#/entities/Course" },
+      "description": "Collection of courses offered by Arkadia Academy"
+    },
+    "/news/{newsId}": {
+      "schema": { "$ref": "#/entities/NewsItem" },
+      "description": "Collection of academy news and articles"
+    },
+    "/gallery/{galleryId}": {
+      "schema": { "$ref": "#/entities/GalleryItem" },
+      "description": "Collection of photo and video gallery items"
+    },
+    "/applications/{applicationId}": {
+      "schema": { "$ref": "#/entities/Application" },
+      "description": "Collection of prospective student admission applications"
+    }
+  }
+}

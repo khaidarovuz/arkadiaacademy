@@ -1,0 +1,6 @@
+{
+  "name": "Arkadia Academy",
+  "description": "Arkadia Academy o'quv markazi rasmiy veb-sayti. Xorijiy tillar, aniq fanlar, DTM va abituriyent tayyorlov kurslari, yangiliklar va online qabul.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
